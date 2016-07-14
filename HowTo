@@ -1,0 +1,6 @@
+Create the script: nano src/main/scala/SparkBlast.scala
+Compile then: sbt package
+Execute so: spark-submit --executor-memory qtd-memory --driver-memory qtd-memory --num-executors num-executor --executor-cores 1 
+          --driver-cores num-cores --class SparkBlast target/scala-2.10/simple-project_2.10-1.0.jar num-cores 
+          "/home/hadoop/blastall/bin/blastall -p blastp -d /home/hadoop/spark-install/bin/database.fa -e 1E-05 -v 1000 -b 
+          1000 -m 8" input output
