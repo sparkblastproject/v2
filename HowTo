@@ -1,6 +1,22 @@
+First you have to execute SparkBLAST:
+
+
 Create the script: nano src/main/scala/SparkBlast.scala
+
 Compile then: sbt package
+
 Execute so: spark-submit --executor-memory qtd-memory --driver-memory qtd-memory --num-executors num-executor --executor-cores 1 
           --driver-cores num-cores --class SparkBlast target/scala-2.10/simple-project_2.10-1.0.jar num-cores 
           "/home/hadoop/blastall/bin/blastall -p blastp -d /home/hadoop/spark-install/bin/database.fa -e 1E-05 -v 1000 -b 
           1000 -m 8" input output
+
+After this you need to find RBH, so execute then:
+
+The Rbh.java script separates and writes to a file only the RBH.
+
+The Rbhsoap.java script that goes in the NCBI and returns the name of the microorganisms and their function.
+
+The RbhOrganismo script that does the comparisons.
+
+
+Done, you have your RBHs.
