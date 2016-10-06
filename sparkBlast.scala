@@ -5,7 +5,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
-object SparkBlast {
+object sparkBlast {
   def main(args: Array[String]) {
     val conf2 = new SparkConf().setAppName("Spark Blast")
     val sc = new SparkContext(conf2)
