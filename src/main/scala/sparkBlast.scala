@@ -20,8 +20,8 @@ object sparkBlast {
     
     /* Replace first character to add simbol '>'*/
     val parte2 = mapDataset.map(x=>x.replaceFirst("gi|",">gi|"))
-    val parte3 = parte2.map(x=>x.replace("sp|",">sp|"))
-    val parte4 = parte3.map(x=>x.replace("tr|",">tr|"))
+    val parte3 = parte2.map(x=>x.replaceFirst("sp|",">sp|"))
+    val parte4 = parte3.map(x=>x.replaceFirst("tr|",">tr|"))
     
     /* Option to repartition file in splits defined on 'val nos'*/
     val repartitionDataset = parte4.repartition(nos.toInt)
