@@ -9,7 +9,7 @@ object sparkBlast {
   def main(args: Array[String]) {
   val conf2 = new SparkConf().setAppName("Spark Blast")
     val sc = new SparkContext(conf2)
-    val nos = args(0)
+    val splits = args(0)
     val conf = new Configuration
     
     /* Set delimiter to split file in correct local*/
@@ -24,7 +24,7 @@ object sparkBlast {
     val parte4 = parte3.map(x=>x.replaceFirst("tr|",">tr|"))
     
     /* Option to repartition file in splits defined on 'val nos'*/
-    val repartitionDataset = parte4.repartition(nos.toInt)
+    val repartitionDataset = parte4.repartition(splits.toInt)
     repartitionDataset.pipe(script).saveAsTextFile(args(3))
     sc.stop
 }
