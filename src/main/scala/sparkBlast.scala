@@ -23,7 +23,7 @@ object sparkBlast {
     val parte3 = parte2.map(x=>x.replaceFirst("sp|",">sp|"))
     val parte4 = parte3.map(x=>x.replaceFirst("tr|",">tr|"))
     
-    /* Option to repartition file in splits defined on 'val nos'*/
+    /* Option to repartition file in splits defined on 'val splits'*/
     val repartitionDataset = parte4.repartition(splits.toInt)
     repartitionDataset.pipe(script).saveAsTextFile(args(3))
     sc.stop
