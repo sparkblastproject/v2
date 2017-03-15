@@ -1,22 +1,39 @@
-First, execute SparkBLAST:
+How to execute SparkBLAST
+-------------------------
+
+We assume the cluster already has Spark previously configured, and each node has BLAST installed. Also, each computing node must acces to the target database (e.g., through scp, nfs, etc).
+   
+Then, you are able to use SparkBLAST.
+
+There are many ways to run SparkBLAST. An easy way is to clone this project in your client machine. This will copy all SparBLAST stuff on your machine, including source codes in Scala, the FASTA files containing the bacteria's data, images of figures, and Java programs to produce the RBHs: 
+
+  $ git clone https://github.com/Ufscar-Fiocruz-Ifsul/spark-blast2.0.git
+  
+
+Next, compile the source code and all dependencies to produce the executable files. It will produce a .jar bundle redy to execute:
+
+   $ sbt package
 
 
-Create the script: nano src/main/scala/SparkBlast.scala
-
-To compile: sbt package
-
-Then, execute: spark-submit --executor-memory qtd-memory --driver-memory qtd-memory --num-executors num-executor --executor-cores 1 
+Then, you are ready to execute SparkBLAST. It will run the queries against the target database, and produce the output file: 
+   $ spark-submit --executor-memory qtd-memory --driver-memory qtd-memory --num-executors num-executor --executor-cores 1 
           --driver-cores num-cores --class SparkBlast target/scala-2.10/simple-project_2.10-1.0.jar num-cores 
           "/home/hadoop/blastall/bin/blastall -p blastp -d /home/hadoop/spark-install/bin/database.fa -e 1E-05 -v 1000 -b 
-          1000 -m 8" input output
+          1000 -m 8" input output; hadoop dfs -getmerge output output.local
 
-Next step is to execute RBH:
+At this point, you have all the BLAST processing done. The final step is to find the RBH. We provide three java programs which must be executed.
 
-   Rbh.java: this script selects only the RBH and writes to a file.
+The first java program filters the output file and copies only the RBH and writes to a file:
 
-   Rbhsoap.java: fetches the microorganism's name and description from NCBI.
+   $ java Rbh.class 
 
-   RbhOrganismo: script that runs the comparison.
+The second java program fetches the microorganism's name and description inthe NCBI:
+
+   $ java Rbhsoap.class
+
+Finally, do the comparison:
+
+   $ java RbhOrganismo.class
 
 
 Done! Enjoy your RBHs.
