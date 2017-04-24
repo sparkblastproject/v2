@@ -27,4 +27,5 @@ object sparkBlast {
     val repartitionDataset = parte4.repartition(splits.toInt)
     repartitionDataset.pipe(script).saveAsTextFile(args(3))
     sc.stop
+    }
 }
